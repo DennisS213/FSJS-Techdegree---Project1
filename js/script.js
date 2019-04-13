@@ -5,45 +5,45 @@ project 1 - A Random Quote Generator
 
 // Study guide for this project - https://drive.google.com/file/d/1s5grutGuQFwJcQP8bFwEI69Q8FCkGdDk/view?usp=sharing
 
+/***
+ * Process to load a new quote every 10 seconds automatically.
+ */
 
-
-
-/*** 
-  Create the array of quote objects and name it `quotes`.
-  Add at least five quote objects to the `quotes` array.
-  Give each quote object a `quote` and `source` property.
-  Add the `citation` property to at least one object in the array.
-  Add the `year` property to at least one object in the array.
-  Use console.log() to log your array of quotes to the console.
-***/
-
-
-
+var intervalID = window.setInterval(printQuote, 10000);
 
 /***
-  Create the `getRandomQuote` function to:
-   - Create a variable to store a random number 
-   - Cse the random number to `return` a random quote object from the `quotes` array.
-***/
+ * Function to return a random quote from the quotes array
+ * The quotes are stored in a separate File called quotes.js
+ */
 
 function getRandomQuote() {
   var randomNumber = Math.floor( Math.random() * quotes.length);
-  alert(randomNumber);
+  //alert(randomNumber);
+  console.log(quotes[randomNumber]);
   return quotes[randomNumber];
 }
+/***
+  Function to generate a random background color for the website.
+  It generates 3 random numbers between 1 and 255 and combines
+  these values as the RGB color. 
+  Source https://www.w3schools.com/jsref/prop_style_background.asp
+***/
+function randomBackground() {
+  var r = Math.floor(Math.random() * 256);
+  var g = Math.floor(Math.random() * 256);
+  var b = Math.floor(Math.random() * 256);
+  var bgColor = "rgb(" + r + "," + g + "," + b + ")";
+
+  document.body.style.background = bgColor;
+  }
 
 /***
-  Create the `printQuote` function to: 
-   - Call the `getRandomQuote` function and assign it to a variable.
-   - Create a variable for the HTML string and set it equal to an empty string.
-   - Use the HTML template in the instructions or the markup in the index.html file, AND 
-     the random quote vairable to build your HTML string.
-   - Add the quote and source section to the HTML string.
-   - Use an if statement to check for the citation property before adding it to the HTML string.
-   - Use an if statement to check for the year property before adding it to the HTML string.
-   - Don't forget to close that final `p` tag.
-   - Set the `innerHTML` of the `quote-box` div to the HTML string. 
-***/
+ * printQuote function to display a random quote from the quotes array 
+ * on the website. The function checks if the quote has a citation, year & category
+ * and if so these values will be displayed on the webpage. In addtion the randomBackground
+ * Function will be called in order to change the background for each new quote.
+ */
+
 function printQuote() {
   var randomQuote = getRandomQuote();
   var htmlString = "";
@@ -59,11 +59,15 @@ function printQuote() {
     htmlString += '<span class="year">'+ randomQuote.year + '</span>';
   }
 
+  if (randomQuote.categorization !== null && randomQuote.categorization !== undefined){
+    htmlString += '<span class="category">'+ randomQuote.categorization + '</span>';
+  }
+
   htmlString += '</p>';
   div.innerHTML = htmlString;
+
+  randomBackground();
 }
-
-
 
 /***
   When the "Show another quote" button is clicked, the event listener 
@@ -75,4 +79,3 @@ function printQuote() {
 document.getElementById('loadQuote').addEventListener("click", printQuote, false);
 
 
-// Remember to delete the comments that came with this file, and replace them with your own code comments.

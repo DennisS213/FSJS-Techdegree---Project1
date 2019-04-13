@@ -27,7 +27,8 @@ project 1 - A Random Quote Generator
 ***/
 
 function getRandomQuote() {
-  var randomNumber = Math.floor( Math.random() * quotes.length) + 1;
+  var randomNumber = Math.floor( Math.random() * quotes.length);
+  alert(randomNumber);
   return quotes[randomNumber];
 }
 
@@ -47,14 +48,14 @@ function printQuote() {
   var randomQuote = getRandomQuote();
   var htmlString = "";
   var div = document.getElementById('quote-box');
-  htmlString = '<p class="quote">' + randomQuote.quotation + '</p>';
+  htmlString += '<p class="quote">' + randomQuote.quotation + '</p>';
   htmlString += '<p class="source">' + randomQuote.source;
 
-  if (randomQuote.citation !== null){
+  if (randomQuote.citation !== null && randomQuote.citation !== undefined){
     htmlString += '<span class="citation">'+ randomQuote.citation + '</span>';
   }
 
-  if (randomQuote.year !== null){
+  if (randomQuote.year !== null && randomQuote.year !== undefined){
     htmlString += '<span class="year">'+ randomQuote.year + '</span>';
   }
 
